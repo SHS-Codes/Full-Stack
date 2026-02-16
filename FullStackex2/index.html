@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova Solutions | Innovative Tech Services</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --secondary: #6c757d;
+            --success: #198754;
+            --info: #0dcaf0;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --tech-blue: #4361ee;
+            --tech-purple: #7209b7;
+            --tech-green: #4cc9f0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Colorful Navbar */
+        .navbar-custom {
+            background: linear-gradient(135deg, var(--tech-blue) 0%, var(--tech-purple) 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-custom .navbar-brand {
+            color: white;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        
+        .navbar-custom .nav-link {
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-custom .nav-link:hover, 
+        .navbar-custom .nav-link.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Carousel */
+        .carousel-item {
+            height: 500px;
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            bottom: 20%;
+        }
+        
+        /* Section Styling */
+        .section-title {
+            color: var(--tech-blue);
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to right, var(--tech-blue), var(--tech-purple));
+            border-radius: 2px;
+        }
+        
+        /* Cards */
+        .service-card {
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .team-card {
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .team-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .team-img {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        /* Table Styling */
+        .company-table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .company-table thead {
+            background: linear-gradient(to right, var(--tech-blue), var(--tech-purple));
+            color: white;
+        }
+        
+        /* Testimonials */
+        .testimonial-section {
+            background-color: rgba(108, 117, 125, 0.05);
+            border-radius: 15px;
+        }
+        
+        .testimonial-carousel {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-item {
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #343a40 100%);
+            color: white;
+        }
+        
+        /* Pagination */
+        .pagination-custom .page-link {
+            color: var(--tech-blue);
+            border: 1px solid #dee2e6;
+        }
+        
+        .pagination-custom .page-item.active .page-link {
+            background-color: var(--tech-blue);
+            border-color: var(--tech-blue);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .carousel-item {
+                height: 350px;
+            }
+            
+            .carousel-caption {
+                bottom: 10%;
+                padding: 15px;
+            }
+            
+            .carousel-caption h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-cpu"></i> TechNova Solutions
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-5">
+        <!-- Banner Carousel -->
+        <section id="home" class="pt-5">
+            <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');">
+                        <div class="carousel-caption text-start">
+                            <h3>Innovative Tech Solutions</h3>
+                            <p>Driving digital transformation with cutting-edge technology.</p>
+                            <a href="#services" class="btn btn-primary btn-lg">Explore Services</a>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80');">
+                        <div class="carousel-caption text-center">
+                            <h3>Expert Team of Professionals</h3>
+                            <p>Our skilled team delivers exceptional results for every project.</p>
+                            <a href="#team" class="btn btn-primary btn-lg">Meet Our Team</a>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                        <div class="carousel-caption text-end">
+                            <h3>Client Success Stories</h3>
+                            <p>Join hundreds of satisfied clients who trust our solutions.</p>
+                            <a href="#testimonials" class="btn btn-primary btn-lg">View Testimonials</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Company Details with Table -->
+        <section id="about" class="py-5">
+            <div class="container">
+                <h2 class="section-title text-center">About TechNova Solutions</h2>
+                <div class="row align-items-center mb-5">
+                    <div class="col-lg-6">
+                        <h3>Leading Technology Innovator Since 2015</h3>
+                        <p class="lead">TechNova Solutions provides cutting-edge technology services to businesses of all sizes, helping them transform and thrive in the digital age.</p>
+                        <p>We specialize in creating custom software solutions, implementing cloud infrastructure, and providing data analytics services that drive business growth. Our team of certified professionals is committed to delivering excellence in every project.</p>
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> 8+ Years Experience</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> 200+ Projects Delivered</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> 24/7 Customer Support</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> 50+ Expert Team Members</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> ISO 9001 Certified</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> Global Client Base</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="table-responsive company-table">
+                            <table class="table table-hover table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="text-center h4">Company Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Founded</th>
+                                        <td>2015</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CEO</th>
+                                        <td>Hari Sanjay</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Headquarters</th>
+                                        <td>Chennai, India</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Employees</th>
+                                        <td>50+</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Clients</th>
+                                        <td>150+</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Service Areas</th>
+                                        <td>Global</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Certifications</th>
+                                        <td>ISO 9001, Microsoft Gold Partner</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center mt-4">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination pagination-custom">
+                            <li class="page-item">
+                                <a class="page-link" href="#home">Previous</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#home">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#about">2</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#services">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="section-title text-center">Our Services</h2>
+                <p class="text-center lead mb-5">We offer a comprehensive range of technology services to help your business grow.</p>
+                
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card service-card shadow-sm border-0">
+                            <div class="card-body text-center p-4">
+                                <div class="service-icon text-primary">
+                                    <i class="bi bi-laptop"></i>
+                                </div>
+                                <h4 class="card-title">Custom Software</h4>
+                                <p class="card-text">Tailored software solutions designed to meet your specific business requirements and streamline operations.</p>
+                                <a href="#" class="btn btn-outline-primary">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card service-card shadow-sm border-0">
+                            <div class="card-body text-center p-4">
+                                <div class="service-icon text-success">
+                                    <i class="bi bi-cloud-arrow-up"></i>
+                                </div>
+                                <h4 class="card-title">Cloud Solutions</h4>
+                                <p class="card-text">Scalable and secure cloud infrastructure to enhance flexibility and reduce operational costs.</p>
+                                <a href="#" class="btn btn-outline-success">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card service-card shadow-sm border-0">
+                            <div class="card-body text-center p-4">
+                                <div class="service-icon text-warning">
+                                    <i class="bi bi-shield-check"></i>
+                                </div>
+                                <h4 class="card-title">Cybersecurity</h4>
+                                <p class="card-text">Comprehensive security solutions to protect your digital assets from threats and vulnerabilities.</p>
+                                <a href="#" class="btn btn-outline-warning">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card service-card shadow-sm border-0">
+                            <div class="card-body text-center p-4">
+                                <div class="service-icon text-info">
+                                    <i class="bi bi-graph-up-arrow"></i>
+                                </div>
+                                <h4 class="card-title">Data Analytics</h4>
+                                <p class="card-text">Transform raw data into actionable insights to drive informed business decisions.</p>
+                                <a href="#" class="btn btn-outline-info">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="py-5">
+            <div class="container">
+                <h2 class="section-title text-center">Meet Our Team</h2>
+                <p class="text-center lead mb-5">Our talented team of professionals is dedicated to delivering exceptional results.</p>
+                
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card team-card shadow-sm border-0">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" class="card-img-top team-img" alt="Hari Sanjay">
+                            <div class="card-body text-center p-3">
+                                <h5 class="card-title mb-1">Hari Sanjay</h5>
+                                <p class="text-muted">CEO & Founder</p>
+                                <p class="card-text small">Technology visionary with 15+ years of industry experience.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card team-card shadow-sm border-0">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top team-img" alt="Rahul">
+                            <div class="card-body text-center p-3">
+                                <h5 class="card-title mb-1">Rahul</h5>
+                                <p class="text-muted">CTO</p>
+                                <p class="card-text small">Expert in cloud architecture and scalable system design.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card team-card shadow-sm border-0">
+                            <img src="images.jpeg" class="card-img-top team-img" alt="Jeya Krishnan">
+                            <div class="card-body text-center p-3">
+                                <h5 class="card-title mb-1">Jeya Krishnan</h5>
+                                <p class="text-muted">Lead Developer</p>
+                                <p class="card-text small">Full-stack developer specializing in modern web technologies.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card team-card shadow-sm border-0">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80" class="card-img-top team-img" alt="Priya">
+                            <div class="card-body text-center p-3">
+                                <h5 class="card-title mb-1">Priya</h5>
+                                <p class="text-muted">Project Manager</p>
+                                <p class="card-text small">Agile expert with a track record of successful project delivery.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="section-title text-center">Client Testimonials</h2>
+                <p class="text-center lead mb-5">What our clients say about working with TechNova Solutions.</p>
+                
+                <div class="testimonial-section p-4">
+                    <div id="testimonialCarousel" class="carousel slide testimonial-carousel" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="testimonial-item text-center">
+                                    <div class="mb-4">
+                                        <i class="bi bi-chat-quote-fill display-5 text-primary"></i>
+                                    </div>
+                                    <p class="lead fst-italic mb-4">"TechNova Solutions transformed our business operations with their custom software. The team was professional, responsive, and delivered beyond our expectations. Our productivity has increased by 40% since implementation."</p>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <div>
+                                            <h5 class="mb-0">Vikram Mehta</h5>
+                                            <p class="text-muted mb-0">CEO, InnovateCorp</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="testimonial-item text-center">
+                                    <div class="mb-4">
+                                        <i class="bi bi-chat-quote-fill display-5 text-success"></i>
+                                    </div>
+                                    <p class="lead fst-italic mb-4">"The cloud migration project handled by TechNova was seamless. Their expertise in cloud architecture saved us significant costs while improving scalability. We highly recommend their services to any business looking to modernize."</p>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <div>
+                                            <h5 class="mb-0">Anjali Patel</h5>
+                                            <p class="text-muted mb-0">CTO, Global Retail Solutions</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="testimonial-item text-center">
+                                    <div class="mb-4">
+                                        <i class="bi bi-chat-quote-fill display-5 text-warning"></i>
+                                    </div>
+                                    <p class="lead fst-italic mb-4">"Working with Hari and his team was a game-changer for our data analytics capabilities. They helped us make sense of complex data and provided actionable insights that drove our revenue growth by 25%."</p>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <div>
+                                            <h5 class="mb-0">Rajesh Kumar</h5>
+                                            <p class="text-muted mb-0">Director, FinTech Innovations</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon bg-primary rounded-circle p-3"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon bg-primary rounded-circle p-3"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-5">
+            <div class="container">
+                <h2 class="section-title text-center">Contact Us</h2>
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>Get In Touch</h4>
+                                        <p class="text-muted">Have a project in mind? Contact us today to discuss how we can help.</p>
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2">
+                                                <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                                                123 Tech Street, Chennai, India
+                                            </li>
+                                            <li class="mb-2">
+                                                <i class="bi bi-telephone-fill text-primary me-2"></i>
+                                                +91 98765 43210
+                                            </li>
+                                            <li class="mb-2">
+                                                <i class="bi bi-envelope-fill text-primary me-2"></i>
+                                                info@technovasolutions.com
+                                            </li>
+                                            <li class="mb-2">
+                                                <i class="bi bi-clock-fill text-primary me-2"></i>
+                                                Mon-Fri: 9:00 AM - 6:00 PM
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <form>
+                                            <div class="mb-3">
+                                                <input type="text" class="form-control" placeholder="Your Name" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="email" class="form-control" placeholder="Email Address" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <textarea class="form-control" rows="3" placeholder="Your Message" required></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4><i class="bi bi-cpu"></i> TechNova Solutions</h4>
+                    <p>Innovative technology solutions for a digital world.</p>
+                    <div class="d-flex">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li><a href="#about" class="text-white-50 text-decoration-none">About</a></li>
+                        <li><a href="#services" class="text-white-50 text-decoration-none">Services</a></li>
+                        <li><a href="#team" class="text-white-50 text-decoration-none">Team</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Services</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none">Custom Software</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Cloud Solutions</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Cybersecurity</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Data Analytics</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 TechNova Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Initialize carousels
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Update active nav link on scroll
+            window.addEventListener('scroll', function() {
+                let current = '';
+                const sections = document.querySelectorAll('section');
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if(scrollY >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if(link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
