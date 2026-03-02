@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        /* reset & soft glass background */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #e9eef3 0%, #d9e0e9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            backdrop-filter: blur(2px);
+        }
+
+        /* main glass container — frosty & clean */
+        .glass-container {
+            max-width: 620px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(14px) saturate(180%);
+            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            padding: 1.8rem 1.8rem 2.2rem;
+            border: 1px solid rgba(255,255,255,0.45);
+        }
+
+        /* heading with subtle glow */
+        h2 {
+            text-align: center;
+            font-weight: 600;
+            font-size: 2.1rem;
+            letter-spacing: -0.5px;
+            color: #1e293b;
+            text-shadow: 0 2px 5px rgba(255,255,255,0.7);
+            margin-bottom: 1.6rem;
+            margin-top: 0.2rem;
+            text-transform: uppercase;
+        }
+
+        /* light crimson red box (where list appears) */
+        .crimson-panel {
+            background: rgba(220, 60, 80, 0.08); 
+            background: linear-gradient(135deg, rgba(230, 70, 90, 0.1) 0%, rgba(200, 50, 70, 0.12) 100%);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 1.6rem 1.5rem 1.8rem;
+            border: 1.5px solid rgba(200, 60, 70, 0.25);
+            box-shadow: 0 8px 20px -6px rgba(150, 30, 40, 0.2), inset 0 2px 4px rgba(255, 230, 235, 0.8);
+        }
+
+        /* input group — glassy, matching */
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 0.9rem 1rem;
+            border-radius: 48px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .input-group input, .input-group select {
+            background: rgba(255,255,255,0.7);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 40px;
+            padding: 0.7rem 1.2rem;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.15s;
+            color: #1e1e2f;
+            font-weight: 500;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
+        }
+
+        input[type="text"] {
+            flex: 2 1 200px;
+        }
+
+        input[type="date"] {
+            flex: 1 1 140px;
+            color: #2c3e50;
+            font-family: 'Segoe UI', monospace;
+        }
+
+        select {
+            flex: 0 1 100px;
+            background: rgba(255,255,255,0.8);
+            cursor: pointer;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            border-color: #b13e4f;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(200, 70, 80, 0.2);
+        }
+
+        /* add button */
+        .add-btn {
+            background: #c13e54;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(180, 40, 60, 0.25);
+            transition: 0.15s;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            flex: 0 0 auto;
+        }
+
+        .add-btn:hover {
+            background: #a72e44;
+            transform: scale(0.98);
+            box-shadow: 0 8px 18px rgba(160, 30, 40, 0.3);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0;
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            margin-bottom: 0.9rem;
+            border-radius: 30px;
+            padding: 0.9rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            transition: 0.15s;
+        }
+
+        li:hover {
+            background: rgba(255, 255, 255, 0.75);
+            border-color: rgba(200, 120, 130, 0.4);
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .task-main {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex: 2 1 260px;
+        }
+
+        .task-main input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+            accent-color: #c13e54;
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 40px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: #aa3e4b;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .prio-1 { background: #b81b30; }
+        .prio-2 { background: #c9623a; }
+        .prio-3 { background: #3f7e9c; }
+
+        .task-main strong {
+            font-weight: 600;
+            color: #1f2a36;
+            font-size: 1.05rem;
+            word-break: break-word;
+        }
+
+        .completed-text {
+            text-decoration: line-through;
+            color: #6f7a88;
+            opacity: 0.8;
+        }
+
+        .deadline-info {
+            font-size: 0.8rem;
+            margin-left: 2.6rem;
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(245, 235, 235, 0.5);
+            border-radius: 40px;
+            display: inline-block;
+            color: #2c3e50;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .overdue {
+            color: #bf2c3a;
+            font-weight: 700;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .actions button {
+            border: none;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            transition: 0.1s;
+            border: 1px solid rgba(255,255,255,0.7);
+        }
+
+        .edit-btn { background: rgba(250, 210, 110, 0.8); color: #3e2f1a; }
+        .edit-btn:hover { background: #f0b843; }
+
+        .delete-btn { background: rgba(200, 70, 80, 0.75); color: white; }
+        .delete-btn:hover { background: #b13e52; }
+
+        .empty-msg {
+            text-align: center;
+            color: #592d38;
+            font-style: italic;
+            background: rgba(255, 240, 240, 0.5);
+            padding: 1.2rem;
+            border-radius: 60px;
+            margin-top: 1.2rem;
+            font-weight: 500;
+            border: 1px dashed rgba(190, 90, 100, 0.5);
+        }
+    </style>
+</head>
+<body ng-app="todoApp">
+
+<div class="glass-container">
+    <h2>To Do List</h2>
+
+    <div class="crimson-panel" ng-controller="todoController">
+
+        <div class="input-group">
+            <input type="text" ng-model="newTask" placeholder="write task ..." aria-label="new task">
+            <select ng-model="newPriority">
+                <option value="1">🔴 high</option>
+                <option value="2">🟠 medium</option>
+                <option value="3">🔵 low</option>
+            </select>
+            <input type="date" ng-model="newDeadline" aria-label="deadline">
+            <button class="add-btn" ng-click="addItem()">+ add</button>
+        </div>
+
+        <div class="empty-msg" ng-if="todoList.length === 0">
+            ✦ no tasks yet. add one above ✦
+        </div>
+
+        <ul>
+            <li ng-repeat="item in todoList | orderBy:['completed', 'priority']">
+                <div class="task-header">
+                    <div class="task-main">
+                        <input type="checkbox" ng-model="item.completed" aria-label="complete">
+                        <span ng-if="!item.isEditing" ng-class="{'completed-text': item.completed}">
+                            <span class="badge prio-{{item.priority}}">
+                                {{ item.priority == 1 ? 'P1' : (item.priority == 2 ? 'P2' : 'P3') }}
+                            </span>
+                            <strong>{{ item.task }}</strong>
+                        </span>
+                        <input type="text" ng-if="item.isEditing" ng-model="item.task" style="width:100%; max-width:240px;" aria-label="edit task">
+                    </div>
+
+                    <div class="actions">
+                        <button class="edit-btn" ng-click="toggleEdit(item)">
+                            {{ item.isEditing ? '✓ save' : '✎ edit' }}
+                        </button>
+                        <button class="delete-btn" ng-click="deleteItem(item)">✕ del</button>
+                    </div>
+                </div>
+
+                <div class="deadline-info" ng-if="item.deadline">
+                    <span ng-class="{'overdue': isOverdue(item.deadline) && !item.completed}">
+                        📅 due: {{ item.deadline | date:'MMM d, yyyy' }}
+                        <span ng-if="isOverdue(item.deadline) && !item.completed"> (overdue!)</span>
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    (function() {
+        var app = angular.module('todoApp', []);
+
+        app.controller('todoController', function($scope) {
+            $scope.todoList = [
+                {
+                    task: 'Complete project design',
+                    priority: 2,
+                    deadline: new Date(new Date().setDate(new Date().getDate() - 1)),
+                    completed: false,
+                    isEditing: false
+                },
+                {
+                    task: 'Buy groceries',
+                    priority: 1,
+                    deadline: new Date(new Date().setDate(new Date().getDate() + 2)),
+                    completed: false,
+                    isEditing: false
+                }
+            ];
+
+            $scope.newPriority = "2";
+
+            $scope.addItem = function() {
+                if ($scope.newTask && $scope.newTask.trim() !== '') {
+                    $scope.todoList.push({
+                        task: $scope.newTask.trim(),
+                        priority: parseInt($scope.newPriority),
+                        deadline: $scope.newDeadline ? new Date($scope.newDeadline) : null,
+                        completed: false,
+                        isEditing: false
+                    });
+                    $scope.newTask = '';
+                    $scope.newDeadline = null;
+                    $scope.newPriority = "2";
+                }
+            };
+
+            $scope.toggleEdit = function(item) {
+                item.isEditing = !item.isEditing;
+            };
+
+            $scope.deleteItem = function(item) {
+                var index = $scope.todoList.indexOf(item);
+                if (index !== -1) {
+                    $scope.todoList.splice(index, 1);
+                }
+            };
+
+            $scope.isOverdue = function(deadline) {
+                if (!deadline) return false;
+                var today = new Date();
+                today.setHours(0, 0, 0, 0);
+                var dueDate = new Date(deadline);
+                dueDate.setHours(0, 0, 0, 0);
+                return dueDate < today;
+            };
+        });
+    })();
+</script>
+
+</body>
+</html>
